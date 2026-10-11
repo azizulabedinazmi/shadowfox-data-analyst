@@ -1,0 +1,218 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage[margin=1in,left=0.75in,right=0.7in,top=0.5in,bottom=0.45in]{geometry}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{eso-pic}
+\usepackage{listings}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,urlcolor=teal,linkcolor=teal]{hyperref}
+
+\definecolor{ink}{HTML}{111827}
+\definecolor{teal}{HTML}{0F766E}
+\definecolor{sand}{HTML}{FBFAF6}
+\definecolor{rule}{HTML}{D9D6CC}
+\definecolor{muted}{HTML}{6B7280}
+\definecolor{warn}{HTML}{B45309}
+\pagecolor{sand}\color{ink}
+\pagestyle{empty}
+
+\AddToShipoutPictureBG{\begin{tikzpicture}[remember picture,overlay]
+  \fill[teal] (current page.north west) rectangle ([xshift=0.35in]current page.south west);
+\end{tikzpicture}}
+
+\newcommand{\kicker}[1]{{\sffamily\bfseries\small\color{teal}\MakeUppercase{#1}}}
+\newcommand{\lbl}[1]{{\sffamily\bfseries\footnotesize\color{muted}\MakeUppercase{#1}}}
+\newcommand{\sect}[1]{\needspace{5\baselineskip}\vspace{0.5em}\par\kicker{#1}\par\vspace{-0.5em}{\color{rule}\rule{\linewidth}{0.5pt}}\par\vspace{-0.2em}}
+\newcommand{\todo}[1]{{\color{warn}\bfseries[TODO: #1]}}
+\setlength{\parskip}{0.3em}
+\setlist[itemize]{itemsep=1pt,topsep=1pt,leftmargin=1.2em}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize\color{ink},
+  breaklines=true,
+  breakatwhitespace=true,
+  frame=single,
+  rulecolor=\color{rule},
+  backgroundcolor=\color{white},
+  framesep=5pt,
+  xleftmargin=3pt,
+  xrightmargin=3pt,
+  columns=fullflexible,
+  keepspaces=true,
+  aboveskip=4pt,
+  belowskip=4pt
+}
+
+\newcommand{\notes}[4]{%
+\lbl{Notes}\par
+\begin{itemize}
+  \item \textbf{What changed in the prompt:} #1
+  \item \textbf{What improved in the output:} #2
+  \item \textbf{What still failed:} #3
+  \item \textbf{What I would try next:} #4
+\end{itemize}}
+\newcommand{\fig}[2]{%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/#1}
+\caption{#2}
+\end{figure}}
+
+\begin{document}
+
+\kicker{ShadowFox data analyst internship}
+\vspace{0.2em}
+\begin{flushleft}
+{\LARGE\bfseries Azizul Abedin Azmi}\par
+{\small\color{muted} \href{mailto:azmi00121@gmail.com}{azmi00121@gmail.com} \quad|\quad \href{https://github.com/azizulabedinazmi}{GitHub} \quad|\quad \href{https://azizulabedinazmi.is-a.dev/}{Portfolio}}
+\end{flushleft}
+\begin{flushright}
+{\sffamily\bfseries\fontsize{25}{28}\selectfont Beginner\\
+Superstore analysis}\\[0.4em]
+{\color{muted}\sffamily Rebuild, validation and findings report}\\
+{\color{muted}\sffamily 11 October 2026}
+\end{flushright}
+
+\sect{Executive summary}
+The Level 1 project cleans the Sample Superstore export and builds a live Excel
+dashboard from 9,993 order lines, 5,009 orders, 793 customers and 1,862 product
+IDs. The complete pipeline now runs in the documented order and passes a
+regression validator. The resulting workbook contains KPI definitions, monthly
+trend and seasonality, product and discount analysis, a dashboard, and an
+auditable cleaning log.
+
+\begin{tabularx}{\linewidth}{@{}lXr@{}}
+\toprule
+\textbf{Metric} & \textbf{Definition} & \textbf{Result}\\
+\midrule
+Sales & Sum of cleaned line sales & \$2,296,919.49\\
+Profit & Sum of cleaned line profit & \$286,409.08\\
+Profit margin & Profit divided by sales & 12.5\%\\
+Orders & Distinct order IDs & 5,009\\
+Return rate & Returned orders divided by orders & 5.9\%\\
+\bottomrule
+\end{tabularx}
+
+\fig{dashboard_overview.png}{Dashboard-style overview reconstructed from the cleaned data. The seven KPI cards and the monthly sales/profit curve correspond to the main Excel Dashboard sheet.}
+
+\sect{Workbook dashboard and visual evidence}
+The Excel workbook is not only a table of results: it is a formula-driven
+dashboard. The report therefore includes the same visual story in a portable
+PDF form. Values in these figures are recalculated from
+\texttt{data/clean/superstore\_clean.csv}; the workbook remains the interactive
+version with formulas, charts and filters.
+
+\fig{monthly_trend.png}{Monthly sales curve and three-month moving average. The curve shows recurring year-end peaks and a clear increase in the later years.}
+
+\fig{category_region.png}{Sales and profit by category and region. Furniture is much less profitable than Office Supplies and Technology, while the West and East carry the largest sales totals.}
+
+\sect{What was fixed}
+\begin{itemize}
+  \item The cleaner now stops with an explicit error when any integrity check
+  fails, instead of writing ``FAILED'' to the log and continuing.
+  \item ``First Line of Order'' now uses a running \texttt{COUNTIF}, so order
+  counts remain correct even if an input file is not grouped by order.
+  \item A new \texttt{validate\_project.py} script checks row counts, totals,
+  data constraints, required sheets, formulas and dashboard structure.
+  \item The README source path was corrected, the screenshot placeholder was
+  replaced with usable workbook instructions, and recommendations were added.
+\end{itemize}
+
+\sect{Reproducible workflow}
+\begin{lstlisting}
+cd "d:\ShadowFox Intership\shadowfox-data-analyst\01-beginner"
+python scripts\clean_superstore.py
+python scripts\build_workbook.py
+python scripts\add_analysis.py
+python scripts\add_dashboard.py
+python scripts\validate_project.py
+\end{lstlisting}
+The raw CSV is preserved. The first script splits the combined Orders, People
+and Returns export, converts types, fills the 11 missing Burlington ZIP codes,
+removes one duplicate line and records every action in the cleaning log. The
+three workbook-building scripts are intentionally ordered because later scripts
+add sheets and formulas to the workbook produced by earlier scripts.
+
+\sect{Business findings}
+\begin{enumerate}[leftmargin=1.5em,itemsep=2pt]
+  \item Deep discounting is the clearest margin warning. Lines above 20\%
+  discount are loss-making in aggregate, so discount approval should be
+  reviewed by sub-category rather than applied broadly.
+  \item Furniture is the weakest category. Tables and Bookcases are the main
+  sub-category loss areas; Machines also combines substantial sales with a low
+  margin and a high average discount.
+  \item Demand is seasonal. September, November and December contribute about
+  43\% of sales, while January and February contribute about 7\%. The workbook
+  compares calendar months across all four years.
+  \item Product concentration matters. A small number of products account for
+  very large gains or losses, making product-level review more useful than
+  product-ID-only grouping because 32 IDs map to multiple names.
+  \item Returns are material but not dominant: 5.9\% of orders and 7.9\% of
+  sales are associated with returned orders. Headline figures remain gross
+  because the source does not state whether profit was reversed.
+\end{enumerate}
+
+\sect{Category, product and margin detail}
+\fig{subcategory_performance.png}{Sub-category performance. Red bars identify negative profit or negative margin; this makes Tables and Bookcases immediately visible as priority areas.}
+
+\fig{product_rankings.png}{Top and bottom ten products by aggregate profit. Product names are used rather than Product IDs because the source reuses 32 IDs for different names.}
+
+\fig{discount_analysis.png}{Discount analysis. The left chart groups lines into the workbook's four discount bands; the right chart shows the relationship at each exact discount rate.}
+
+\fig{seasonality.png}{Seasonality curve from the Monthly Trend sheet. Each line is one year, allowing the same calendar month to be compared across years.}
+
+\sect{Workbook map}
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+\toprule
+\textbf{Sheet} & \textbf{Purpose}\\
+\midrule
+Dashboard & KPI cards and charts for the executive view.\\
+Monthly Trend & 48-month sales/profit table, moving average and seasonality grid.\\
+Product Analysis & Sub-category performance and top/bottom product rankings.\\
+Discount Analysis & Band, exact-rate, category, monthly and correlation analysis.\\
+KPI Definitions & Live KPI formulas, definitions and supporting category/region tables.\\
+Data & Clean order lines plus formula-derived year, quarter, ship days, returns and discount band.\\
+Cleaning Log & Auditable record of every split, conversion, correction and validation check.\\
+\bottomrule
+\end{tabularx}
+
+\sect{Recommendations}
+\begin{enumerate}[leftmargin=1.5em,itemsep=2pt]
+  \item Introduce a review or minimum-margin guardrail for discounts above 20\%,
+  beginning with Tables, Bookcases and Machines.
+  \item Protect peak-season demand with availability, bundles and cross-sells
+  before adding broad discounts.
+  \item Join returns, fulfillment cost and customer data to test whether the
+  worst products and returned orders are structurally unprofitable.
+\end{enumerate}
+
+\sect{Limitations}
+The discount results are associations, not causal estimates. The data covers
+one retailer from 2015--2018 and does not contain cost detail, marketing
+exposure or customer contact history. Return profit treatment is unknown, and
+the Burlington ZIP fill is an outside factual assumption. Excel formula cells
+require recalculation in Excel or LibreOffice after generation.
+
+\notes{Added explicit validation and made the README operational rather than
+placeholder-based.}{The project is reproducible, the workbook structure is
+checked, and the recommendations connect directly to measured findings.}{No
+causal experiment can be inferred from this observational dataset, and slicers
+remain a manual PivotTable step.}{Add a controlled discount test and join
+margin, cost and return outcomes before changing commercial policy.}
+
+\sect{Deliverables}
+\begin{itemize}
+  \item \href{run:../superstore_beginner.xlsx}{Live Excel workbook}
+  \item \href{run:../scripts/validate_project.py}{Regression validator}
+  \item \href{run:beginner_report.tex}{This LaTeX source}
+\end{itemize}
+
+\end{document}

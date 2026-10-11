@@ -1,0 +1,226 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in,left=0.75in,right=0.7in,top=0.5in,bottom=0.45in]{geometry}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{eso-pic}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,urlcolor=teal,linkcolor=teal]{hyperref}
+
+\definecolor{ink}{HTML}{111827}
+\definecolor{teal}{HTML}{0F766E}
+\definecolor{sand}{HTML}{FBFAF6}
+\definecolor{rule}{HTML}{D9D6CC}
+\definecolor{muted}{HTML}{6B7280}
+\pagecolor{sand}\color{ink}
+\pagestyle{empty}
+\AddToShipoutPictureBG{\begin{tikzpicture}[remember picture,overlay]
+  \fill[teal] (current page.north west) rectangle ([xshift=0.35in]current page.south west);
+\end{tikzpicture}}
+\newcommand{\kicker}[1]{{\sffamily\bfseries\small\color{teal}\MakeUppercase{#1}}}
+\newcommand{\sect}[1]{\needspace{5\baselineskip}\vspace{0.5em}\par\kicker{#1}\par\vspace{-0.5em}{\color{rule}\rule{\linewidth}{0.5pt}}\par\vspace{-0.2em}}
+\newcommand{\fig}[2]{\begin{figure}[htbp]\centering\includegraphics[width=\linewidth]{charts/#1}\caption{#2}\end{figure}}
+\setlength{\parskip}{0.3em}
+\setlist[itemize]{itemsep=1pt,topsep=1pt,leftmargin=1.2em}
+
+\begin{document}
+\kicker{ShadowFox data analyst internship}
+\begin{flushleft}
+{\LARGE\bfseries Azizul Abedin Azmi}\par
+{\small\color{muted} \href{mailto:azmi00121@gmail.com}{azmi00121@gmail.com} \quad|\quad \href{https://github.com/azizulabedinazmi}{GitHub} \quad|\quad \href{https://azizulabedinazmi.is-a.dev/}{Portfolio}}
+\end{flushleft}
+\begin{flushright}
+{\sffamily\bfseries\fontsize{25}{28}\selectfont Customer and\\
+Revenue Analysis}\\[0.4em]
+{\color{muted}\sffamily Online Retail --- Intermediate Level}\\
+{\color{muted}\sffamily 11 October 2026}
+\end{flushright}
+
+\sect{Executive summary}
+This analysis answers where revenue comes from, how well the retailer keeps its
+customers, and which actions are most likely to grow revenue. The cleaned
+dataset contains 522,537 completed product lines, 19,771 invoices, 4,333
+identified customers, 3,908 products and 38 countries. Revenue is
+\textbf{\pounds10.00M}; cancellations are \pounds230K, or 2.3\% of revenue.
+
+\begin{tabularx}{\linewidth}{@{}lXr@{}}
+\toprule
+\textbf{Metric} & \textbf{Definition} & \textbf{Result}\\
+\midrule
+Revenue & Quantity multiplied by UnitPrice, completed sales & \pounds10.00M\\
+Average order value & Revenue divided by invoices & \pounds505.84\\
+Repeat customer rate & Customers with at least two orders & 65.3\%\\
+Repeat revenue share & Revenue from repeat customers & 93.5\%\\
+Top 10\% concentration & Revenue from largest 10\% of identified customers & 60.3\%\\
+Identified revenue share & Revenue attached to a CustomerID & 84.9\%\\
+\bottomrule
+\end{tabularx}
+
+\fig{01_monthly_revenue.png}{Monthly revenue and active customers. December 2011 is partial and ends on 9 December.}
+
+\sect{Business question and method}
+The source is the Online Retail dataset from the UCI Machine Learning
+Repository, covering 1 December 2010 to 9 December 2011. The grain is one
+product line on one invoice. Revenue is \texttt{Quantity x UnitPrice}; no cost
+or profit field exists, so every value in this report is revenue.
+
+\begin{itemize}
+\item Revenue and product/country analysis uses every valid completed sale,
+including lines without a CustomerID.
+\item Customer behaviour, retention and RFM use only the 4,333 identified
+customers; these represent 84.9\% of revenue.
+\item Cohort retention measures the share of each monthly first-order cohort
+that orders again after 1, 3 and 6 months. December 2010 is excluded from
+averages because the dataset starts then, and December 2011 is partial.
+\item RFM scores Recency, Frequency and Monetary value from 1 to 5 by quintile,
+then assigns six practical customer segments.
+\end{itemize}
+
+\sect{Cleaning and preparation}
+The raw export contains 541,909 lines. The cleaning script removes exact
+duplicates, separates cancellations, removes non-product charges and invalid
+quantity/price lines, standardises product descriptions by StockCode, and
+removes two very large sale/cancellation pairs that were reversed in full.
+The cleaning log records 15 steps and every row count.
+
+\begin{tabularx}{\linewidth}{@{}lXr@{}}
+\toprule
+\textbf{Issue} & \textbf{Treatment} & \textbf{Rows}\\
+\midrule
+Exact duplicate lines & Keep first occurrence & 5,268\\
+Cancellations & Move to separate cancellation analysis & 9,251\\
+Non-product lines & Remove postage, fees, vouchers and adjustments & 2,356\\
+Invalid quantity or price & Remove non-positive normal sales & 2,493\\
+Description variants & Use modal description per StockCode & 6,784\\
+Missing CustomerID & Keep for revenue; exclude from customer behaviour & 131,388\\
+\bottomrule
+\end{tabularx}
+
+\sect{Revenue trend, timing and markets}
+\fig{02_weekday_hour.png}{Revenue is concentrated in working hours and is strongest from Tuesday to Thursday.}
+From January to August, monthly revenue ranges from roughly \pounds0.5M to
+\pounds0.75M. It rises to \pounds1.03M in September, \pounds1.10M in October
+and \pounds1.45M in November. September to November contributes 37.5\% of
+full-month revenue, and November is 2.2 times the January--August average.
+The chart shows active customers rising with the peak, not just larger baskets.
+
+About 75.5\% of revenue is placed from 10:00 to 15:59. Thursday and Tuesday
+are the strongest days, Sunday contributes 8.0\%, and no Saturday orders are
+recorded. This is consistent with trade or business buyers, but the dataset
+cannot prove customer type or explain the Saturday gap.
+
+\fig{03_countries.png}{Top export markets by revenue, excluding the United Kingdom.}
+The United Kingdom produces 84.8\% of revenue; exports contribute 15.2\%.
+The largest export markets are the Netherlands (\pounds284K), EIRE
+(\pounds271K), Germany (\pounds205K), France (\pounds184K) and Australia
+(\pounds138K). EIRE, the Netherlands and Australia are relatively concentrated
+in a small number of customers, while Germany and France are broader markets.
+
+\sect{Customer concentration and repeat purchase}
+\fig{04_concentration.png}{Cumulative revenue concentration. The top 10\% of customers produce 60\% of revenue and the top 20\% produce 74\%.}
+The top 1\% of customers produce 30.5\% of revenue, the top 10\% produce
+60.3\%, and the top 20\% produce 73.9%. The bottom half contributes only 8.1%.
+The mean order value is \pounds506 while the median is \pounds302, showing
+that a small number of large baskets pull up the average.
+
+\fig{05_orders_per_customer.png}{Distribution of order counts per identified customer.}
+Repeat buying is the commercial engine: 65.3\% of identified customers ordered
+more than once and repeat customers produce 93.5\% of identified-customer
+revenue. Returning-customer baskets average \pounds485 versus \pounds402 for
+new-customer order months. The most economical growth lever is therefore
+turning first-time buyers into second-time buyers.
+
+\sect{Retention and new versus returning revenue}
+\fig{06_cohort_retention.png}{Cohort retention heatmap. Blank cells are unavailable or excluded because December 2011 is partial.}
+On average, 19.8\% of a monthly new-customer cohort orders again one month
+later, 22.9\% remains active at month three and 25.0\% at month six. Retention
+does not decline monotonically because customers reorder in bursts, likely
+around their own restocking cycles. The December 2010 cohort is not a true
+new-customer cohort and is excluded from the averages.
+
+\fig{07_new_vs_returning.png}{Monthly revenue from new and returning identified customers.}
+Returning customers supply 79.7\% of identified-customer revenue in 2011, and
+their contribution grows through the year. The November peak is therefore
+largely existing-customer expansion rather than only acquisition.
+
+\sect{RFM customer segments}
+\fig{08_rfm_segments.png}{RFM segment shares of customers and revenue.}
+\begin{tabularx}{\linewidth}{@{}lrrrX@{}}
+\toprule
+\textbf{Segment} & \textbf{Customers} & \textbf{Customer share} & \textbf{Revenue share} & \textbf{Action}\\
+\midrule
+Champions & 912 & 21.0\% & 66.2\% & Protect with account ownership and early warning.\\
+Loyal & 1,047 & 24.2\% & 15.2\% & Encourage frequency and broader baskets.\\
+At Risk & 641 & 14.8\% & 8.6\% & Personal win-back before discounting.\\
+Lost / Hibernating & 1,064 & 24.6\% & 5.7\% & Low-cost reactivation tests.\\
+Needs Attention & 356 & 8.2\% & 2.3\% & Nurture and observe.\\
+New / Promising & 313 & 7.2\% & 2.0\% & Drive the second order.\\
+\bottomrule
+\end{tabularx}
+
+Champions average 11.4 orders and \pounds6,165 in annual revenue. At Risk
+customers average 154 days since their last order and represent \pounds734K of
+historic revenue. A narrower high-value quiet cohort contains 246 customers
+and \pounds535K of prior revenue, making it a practical first win-back list.
+
+\sect{Products and cancellations}
+\fig{09_top_products.png}{Top ten products by revenue. The catalogue is broad: the top ten products account for 8.2\% of revenue, while the top 10\% of products account for 61.0\%.}
+The leading product is Regency Cakestand 3 Tier at \pounds174K, followed by
+White Hanging Heart T-Light Holder and Party Bunting. The top ten products
+represent only 8.2\% of revenue, so availability matters across a wide
+catalogue rather than for one dominant item.
+
+Cancellations total \pounds230K, or 2.3\% of revenue. April 2011 is the peak
+month at 6.5\%, and the ten customers with the most cancelled value account for
+34.2\% of cancellation value. Cancellations are worth monitoring but are not
+the first growth priority.
+
+\sect{Recommendations and measurement}
+\begin{enumerate}[leftmargin=1.5em,itemsep=2pt]
+\item \textbf{Protect Champions.} Assign account owners to the top 10\% and
+alert the team when a customer's gap exceeds their normal ordering interval.
+Measure Champion retention and order frequency.
+\item \textbf{Win back lapsed high-value customers.} Contact At Risk and
+valuable quiet customers personally before offering discounts. Test outreach
+against a holdout group and measure reactivation revenue.
+\item \textbf{Get the second order.} Send a follow-up two to three weeks after
+the first purchase with relevant best sellers and a modest incentive. Measure
+second-order conversion within 90 days.
+\item \textbf{Build Q4 from August.} Forecast products, stock and staffing
+before September, then compare Q4 revenue, stock-outs and service levels with
+plan.
+\item \textbf{Time communications.} Prioritise Tuesday--Thursday mornings and
+maintain support coverage from 10:00 to 16:00. Measure conversion by send time.
+\item \textbf{Use different export strategies.} Treat EIRE, the Netherlands and
+Australia as key-account markets; use broader market marketing in Germany and
+France.
+\end{enumerate}
+
+\sect{Limitations}
+This is one retailer over one year, so seasonality cannot be separated from
+growth. Around 25\% of lines have no CustomerID, and customer findings cover
+identified customers only. There is no cost, profit, marketing, customer-type
+or price data, so explanations are hypotheses rather than causal conclusions.
+RFM boundaries are quintile-based and intentionally pragmatic. Cancellations
+are analysed as revenue leakage, but the dataset does not provide a reason for
+each cancellation.
+
+\sect{Reproducibility}
+\begin{lstlisting}
+cd "d:\ShadowFox Intership\shadowfox-data-analyst\02-intermediate"
+python scripts\clean_online_retail.py
+python analysis\analyze_online_retail.py
+python analysis\build_report.py
+pdflatex -interaction=nonstopmode -halt-on-error -output-directory report report\online_retail_report.tex
+\end{lstlisting}
+The Excel analysis tables, nine chart PNGs, Word report and this PDF are all
+generated from the cleaned CSV outputs.
+
+\end{document}

@@ -58,7 +58,7 @@ derived = [
     ("Ship Days", "=D{r}-C{r}", "0"),
     ("Line Profit Margin", "=IF(R{r}=0,0,U{r}/R{r})", "0.0%"),
     ("Is Returned", "=IF(COUNTIF(Returns!$A$2:$A${ret_last},B{r})>0,1,0)", "0"),
-    ("First Line of Order", "=IF(B{r}<>B{p},1,0)", "0"),
+    ("First Line of Order", "=IF(COUNTIF($B$2:B{r},B{r})=1,1,0)", "0"),
 ]
 header(ws_data, 1, base_cols)
 for j, (name, _, _) in enumerate(derived, len(base_cols) + 1):
@@ -82,9 +82,6 @@ for i, row in enumerate(orders.itertuples(index=False), 2):
         c = ws_data.cell(row=i, column=j,
                          value=formula.format(r=i, p=i - 1, ret_last=ret_last))
         c.font, c.number_format = f_norm, nf
-# first data row has no previous row to compare to
-ws_data.cell(row=2, column=len(base_cols) + len(derived), value=1)
-
 widths = {"A": 8, "B": 16, "C": 12, "D": 12, "E": 15, "F": 12, "G": 20, "H": 12, "I": 14,
           "J": 16, "K": 16, "L": 11, "M": 10, "N": 17, "O": 16, "P": 13, "Q": 45, "R": 11,
           "S": 9, "T": 9, "U": 11}

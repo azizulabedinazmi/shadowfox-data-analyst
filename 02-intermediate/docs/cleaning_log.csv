@@ -1,0 +1,16 @@
+Step,Issue found,Action taken,Rows affected,Rows remaining
+1,Raw file loaded,Read all columns as text so nothing is converted silently.,0,541909
+2,Dates and numbers stored as text,"Converted InvoiceDate to datetime (M/D/YYYY H:MM), Quantity and UnitPrice to numbers.",0,541909
+3,Exact duplicate lines (identical in every column),"Removed repeats and kept the first. Same invoice, product, quantity, price and time is most likely a double entry.",5268,536641
+4,Cancellation invoices (InvoiceNo starts with 'C'),Moved to cancellations.csv. Revenue analysis uses completed sales; cancellations are reported separately as a return rate.,9251,527390
+5,"Non-product lines (postage, manual, bank charges, Amazon fees, gift vouchers)",Removed. These are not products and would distort product and revenue analysis.,2356,525034
+6,"Quantity <= 0 or UnitPrice <= 0 on non-cancelled invoices (stock write-offs, adjustments, free items)",Removed. They carry no sales revenue.,2493,522541
+7,Missing Description,Filled with 'UNKNOWN'. Product analysis uses StockCode as the key.,0,522541
+8,StockCode has several spelling variants of its description,Used the most common description for each StockCode.,6784,522541
+9,Duplicates revealed after standardising descriptions,"Removed (same invoice, product, quantity, price, time).",2,522539
+10,Derived columns,Added Revenue = Quantity x UnitPrice and InvoiceMonth.,0,522539
+11,Missing CustomerID (guest or untracked orders),"Kept in sales_all.csv for revenue, product and country analysis. Excluded from sales_customers.csv because customer behaviour cannot be tracked without an ID.",131388,522539
+12,"Orders of 10,000+ units that the same customer cancelled in full (MEDIUM CERAMIC TOP STORAGE JAR x74,215, PAPER CRAFT , LITTLE BIRDIE x80,995)","Removed both the sale and its cancellation. They are one reversed transaction worth 245,653 in revenue that was never kept. Leaving them in would make a cancelled order the #2 product.",2,522537
+13,Extreme orders,"Kept. Largest lines: PICNIC BASKET WICKER SMALL x60 = 38,970; SET OF TEA COFFEE SUGAR TINS PANTRY x1412 = 7,145; FAIRY CAKE FLANNEL ASSORTED COLOUR x3114 = 6,539",0,522537
+14,Customer-level dataset,Rows with a CustomerID.,0,391149
+15,Integrity checks,"Positive quantity and price, no duplicates: passed.",0,522537

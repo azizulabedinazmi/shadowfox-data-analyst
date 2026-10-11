@@ -159,6 +159,9 @@ checks = {
 }
 for name, ok in checks.items():
     record(f"Check: {name}", "Integrity check run before any analysis.", "Passed." if ok else "FAILED, investigate.", 0, len(orders))
+failed_checks = [name for name, ok in checks.items() if not ok]
+if failed_checks:
+    raise ValueError("Integrity checks failed: " + "; ".join(failed_checks))
 
 # 9. Known issue we do NOT fix --------------------------------------------------
 multi = orders.groupby("Product ID")["Product Name"].nunique()

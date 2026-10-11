@@ -1,0 +1,173 @@
+{
+  "revenue": 10001016.819999998,
+  "invoices": 19771,
+  "customers": 4333,
+  "products": 3908,
+  "countries": 38,
+  "aov": 505.84274037732035,
+  "aov_median": 302.2,
+  "identified_rev_share": 0.8490159293622707,
+  "cancel_value": 230247.96,
+  "cancel_rate": 0.023022455030727567,
+  "date_min": "2010-12-01",
+  "date_max": "2011-12-09",
+  "q4_share": 0.37500945029225813,
+  "nov_rev": 1451578.98,
+  "feb_rev": 507799.87,
+  "nov_vs_avg_jan_aug": 2.2348569610980804,
+  "no_saturday": true,
+  "peak_hours_share": 0.7546672589237781,
+  "sunday_share": 0.07982154858529675,
+  "uk_share": 0.8477379173130918,
+  "top_export": [
+    [
+      "Netherlands",
+      283889.34
+    ],
+    [
+      "EIRE",
+      270850.86
+    ],
+    [
+      "Germany",
+      205381.15
+    ],
+    [
+      "France",
+      184493.0
+    ],
+    [
+      "Australia",
+      138103.81
+    ]
+  ],
+  "export_rev_share": 0.15226208268690822,
+  "repeat_share": 0.6526655896607432,
+  "orders_per_customer_mean": 4.246480498499885,
+  "orders_per_customer_median": 2.0,
+  "repeat_rev_share": 0.9352934002734764,
+  "top1_rev_share": 0.304566546913403,
+  "top10_rev_share": 0.6033879754405412,
+  "top20_rev_share": 0.7389214271304866,
+  "bottom50_rev_share": 0.08053846197575598,
+  "ret_m1": 0.19751057164807528,
+  "ret_m3": 0.2286341642654563,
+  "ret_m6": 0.2503812435464484,
+  "dec10_cohort_m1": 0.36538461538461536,
+  "returning_rev_share_2011": 0.7973880161703452,
+  "rfm": {
+    "Champions": {
+      "customers": 912,
+      "rev_share": 0.6621543424724301,
+      "cust_share": 0.21047772905608123,
+      "avg_recency": 12.472587719298245,
+      "avg_orders": 11.4375,
+      "avg_rev": 6164.876622807018,
+      "revenue": 5622367.48
+    },
+    "Loyal": {
+      "customers": 1047,
+      "rev_share": 0.15187642670021445,
+      "cust_share": 0.241633971843988,
+      "avg_recency": 33.36676217765043,
+      "avg_orders": 3.6695319961795607,
+      "avg_rev": 1231.6964374403055,
+      "revenue": 1289586.17
+    },
+    "At Risk": {
+      "customers": 641,
+      "rev_share": 0.08638677641299268,
+      "cust_share": 0.1479344564966536,
+      "avg_recency": 153.78159126365054,
+      "avg_orders": 3.3790951638065523,
+      "avg_rev": 1144.3246021840873,
+      "revenue": 733512.07
+    },
+    "Lost / Hibernating": {
+      "customers": 1064,
+      "rev_share": 0.05685336894151403,
+      "cust_share": 0.2455573505654281,
+      "avg_recency": 217.95582706766916,
+      "avg_orders": 1.0949248120300752,
+      "avg_rev": 453.7060526315789,
+      "revenue": 482743.24
+    },
+    "Needs Attention": {
+      "customers": 356,
+      "rev_share": 0.022521116623245258,
+      "cust_share": 0.0821601661666282,
+      "avg_recency": 53.598314606741575,
+      "avg_orders": 1.1629213483146068,
+      "avg_rev": 537.1553651685393,
+      "revenue": 191227.31
+    },
+    "New / Promising": {
+      "customers": 313,
+      "rev_share": 0.020207968849603544,
+      "cust_share": 0.07223632587122086,
+      "avg_recency": 18.47923322683706,
+      "avg_orders": 1.220447284345048,
+      "avg_rev": 548.1991054313099,
+      "revenue": 171586.32
+    }
+  },
+  "at_risk_revenue_historic": 733512.0700000001,
+  "at_risk_customers": 641,
+  "valuable_quiet_customers": 246,
+  "valuable_quiet_revenue": 534912.6000000001,
+  "top10_products_share": 0.08196538259596689,
+  "top10pct_products_share": 0.6100246034782693,
+  "top_products": [
+    [
+      "REGENCY CAKESTAND 3 TIER",
+      174156.54
+    ],
+    [
+      "WHITE HANGING HEART T-LIGHT HOLDER",
+      104462.75
+    ],
+    [
+      "PARTY BUNTING",
+      99445.23
+    ],
+    [
+      "JUMBO BAG RED RETROSPOT",
+      94159.81
+    ],
+    [
+      "RABBIT NIGHT LIGHT",
+      66870.03
+    ]
+  ],
+  "xmas_share_of_revenue": 0.04936543342399859,
+  "xmas_sep_nov_share": 0.8017820848862296,
+  "cancel_top": [
+    [
+      "REGENCY CAKESTAND 3 TIER",
+      9697.05
+    ],
+    [
+      "WHITE HANGING HEART T-LIGHT HOLDER",
+      6624.3
+    ],
+    [
+      "FAIRY CAKE FLANNEL ASSORTED COLOUR",
+      6591.42
+    ],
+    [
+      "PANTRY CHOPPING BOARD",
+      4803.06
+    ],
+    [
+      "DOORMAT FAIRY CAKE",
+      4554.9
+    ]
+  ],
+  "cancel_by_cust_top10_share": 0.3417710628141939,
+  "cancel_rate_peak_month": [
+    "2011-04",
+    0.06464393250476218
+  ],
+  "aov_new": 402.2826389413989,
+  "aov_returning": 485.3506811594203
+}

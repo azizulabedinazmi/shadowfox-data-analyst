@@ -1,5 +1,9 @@
 # Level 1 (Beginner): Superstore Sales Analysis
 
+**Azizul Abedin Azmi**
+
+<small>&nbsp; [GitHub](https://github.com/azizulabedinazmi) &nbsp;|&nbsp; [Portfolio](https://azizulabedinazmi.is-a.dev/)</small>
+
 ## Objective
 
 Clean a small retail sales dataset, define the key business metrics, and build a
@@ -24,7 +28,7 @@ category, by region and by product.
 |---|---|
 | Name | Sample Superstore |
 | What it is | Order lines from a US office-supplies retailer, plus a returns list and regional managers |
-| Source | https://github.com/leonism/sample-superstore (`data/superstore.csv`) |
+| Source | https://github.com/leonism/sample-superstore (`data/raw/superstore_raw.csv` in this project) |
 | Period | 3 Jan 2015 to 30 Dec 2018 |
 | Size after cleaning | 9,993 order lines, 5,009 orders, 793 customers, 1,862 product IDs |
 | Grain | One row = one product line within one order |
@@ -41,12 +45,18 @@ The raw file is a single CSV, but it contains three tables stacked together
 ├── data/
 │   ├── raw/superstore_raw.csv   Untouched download
 │   └── clean/                   superstore_clean.csv, returns.csv, regional_managers.csv
-├── docs/cleaning_log.csv        One row per cleaning step
+├── docs/                         Cleaning log and visual PDF report
+│   ├── cleaning_log.csv          One row per cleaning step
+│   ├── beginner_report.tex      LaTeX report source
+│   ├── beginner_report.pdf      Compiled visual report
+│   └── figures/                  PNG charts used by the report
 └── scripts/
     ├── clean_superstore.py      raw -> clean CSVs + cleaning log
     ├── build_workbook.py        clean CSVs -> Excel workbook with formulas
     ├── add_analysis.py          adds Product Analysis, Product Summary, Discount Analysis
-    └── add_dashboard.py         adds Monthly Trend and Dashboard (all charts)
+    ├── add_dashboard.py         adds Monthly Trend and Dashboard (all charts)
+    ├── validate_project.py      regression checks for data and workbook structure
+    └── make_report_charts.py    creates PNG charts used by the LaTeX report
 ```
 
 ## Step-by-step: run the Python scripts
@@ -170,6 +180,33 @@ The final workbook should contain the dashboard plus the `Monthly Trend`,
 `Product Analysis`, `Discount Analysis`, `KPI Definitions`, `Data`, `Returns`,
 `Regional Managers`, and `Cleaning Log` sheets.
 
+### 8. Validate the rebuilt project
+
+Run the regression checks after the four build steps:
+
+```powershell
+python scripts\validate_project.py
+```
+
+The validator checks the cleaned row counts, KPI totals, date and numeric
+constraints, required sheets, formula layout, and dashboard title. It should
+print `Validation passed`.
+
+### 9. Build the visual PDF report
+
+After rebuilding the workbook, generate the report figures and compile the
+LaTeX report with MiKTeX:
+
+```powershell
+python scripts\make_report_charts.py
+pdflatex -interaction=nonstopmode -halt-on-error -output-directory docs docs\beginner_report.tex
+pdflatex -interaction=nonstopmode -halt-on-error -output-directory docs docs\beginner_report.tex
+```
+
+The PDF includes the KPI overview, monthly curves, category and region charts,
+sub-category margins, top and bottom products, discount-rate analysis, and the
+four-year seasonality curves.
+
 ### Optional: create a dashboard preview
 
 To create a smaller preview workbook with the data sheets hidden, run this
@@ -283,7 +320,9 @@ is made.
 
 ## Dashboard
 
-[Insert screenshot of the dashboard sheet here]
+Open `superstore_beginner.xlsx` and select the `Dashboard` sheet to view the
+seven KPI cards and five chart sections. The workbook is formula-driven; use
+`superstore_preview.xlsx` when a compact dashboard-only view is needed.
 
 Current version has seven KPI cards and five sections: sales trend, category and region,
 sub-category performance, top and bottom 10 products, and discounting. The Monthly Trend
@@ -328,7 +367,16 @@ them in unchanged, because you will need to explain them on video.
 
 ## Recommendations
 
-[2-3 actions tied to the insights above]
+1. **Set a discount guardrail.** Review or approve discounts above 20% by
+   sub-category, starting with Tables, Bookcases and Machines. Test a lower
+   discount or a minimum-margin rule rather than assuming every deep discount
+   should be removed.
+2. **Protect profitable demand in peak months.** September, November and
+   December are the strongest sales months. Test bundles, cross-sells and
+   inventory availability before adding broad discounts during those months.
+3. **Investigate the loss and return cohorts.** Review the worst products and
+   returned orders with cost, fulfillment and customer-service data. Confirm
+   whether returns reverse profit before changing targets.
 
 ## Limitations
 
