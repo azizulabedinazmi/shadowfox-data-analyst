@@ -1,0 +1,139 @@
+// ============================================================================
+// DAX measures for the HR Attrition dashboard
+// Table name assumed: HR  (loaded from data/clean/hr_employees.csv)
+//
+// How to use: in Power BI Desktop, Modeling > New measure, then paste ONE
+// measure at a time. Put them all in a table called "_Measures" (Home > Enter
+// data, one empty column, then move the measures there) to keep the model tidy.
+//
+// These were written to match docs/expected_values.csv. They have NOT been run
+// in Power BI Desktop by the author of this file, so check each card against that
+// file after pasting (the guide in docs/BUILD_GUIDE.md says how).
+// ============================================================================
+
+
+// ------------------------------------------------------------------ core counts
+Headcount = COUNTROWS ( HR )
+
+Leavers = COALESCE ( SUM ( HR[Left] ), 0 )
+
+Current Employees = [Headcount] - [Leavers]
+
+// ------------------------------------------------------------------ attrition rate
+Attrition Rate = DIVIDE ( [Leavers], [Headcount] )
+
+// Company-wide rate that ignores every slicer and filter: the benchmark line
+Company Attrition Rate = CALCULATE ( [Attrition Rate], ALL ( HR ) )
+
+// Difference from the company rate, in percentage points (format: +0.0" pp";-0.0" pp")
+Attrition vs Company (pp) = ( [Attrition Rate] - [Company Attrition Rate] ) * 100
+
+
+// ------------------------------------------------------------------ overtime
+Overtime Attrition Rate =
+CALCULATE ( [Attrition Rate], HR[OverTime] = "Yes" )
+
+No Overtime Attrition Rate =
+CALCULATE ( [Attrition Rate], HR[OverTime] = "No" )
+
+// Format: 0.0"x"
+Overtime Multiple = DIVIDE ( [Overtime Attrition Rate], [No Overtime Attrition Rate] )
+
+
+// ------------------------------------------------------------------ tenure and pay
+Avg Tenure Leavers (yrs) =
+CALCULATE ( AVERAGE ( HR[YearsAtCompany] ), HR[Attrition] = "Yes" )
+
+Avg Tenure Stayers (yrs) =
+CALCULATE ( AVERAGE ( HR[YearsAtCompany] ), HR[Attrition] = "No" )
+
+Avg Monthly Income Leavers =
+CALCULATE ( AVERAGE ( HR[MonthlyIncome] ), HR[Attrition] = "Yes" )
+
+Avg Monthly Income Stayers =
+CALCULATE ( AVERAGE ( HR[MonthlyIncome] ), HR[Attrition] = "No" )
+
+// Share of leavers who had been at the company 2 years or less
+Early Leaver Share =
+DIVIDE ( CALCULATE ( [Leavers], HR[YearsAtCompany] <= 2 ), [Leavers] )
+
+
+// ------------------------------------------------------------------ cost
+// Annualised pay of everyone who left. The dataset does not state a currency.
+Annual Salary of Leavers =
+CALCULATE ( SUM ( HR[AnnualIncome] ), HR[Attrition] = "Yes" )
+
+// WHAT-IF PARAMETER 1: replacement cost as a percentage of annual salary.
+// Create it with Modeling > New parameter > Numeric range: min 25, max 200,
+// increment 5, default 50, name "Replacement Cost %". Power BI generates the
+// table and the measure below. Equivalent DAX if you prefer to type it:
+//
+//   Replacement Cost % = GENERATESERIES ( 25, 200, 5 )
+//   Replacement Cost % Value = SELECTEDVALUE ( 'Replacement Cost %'[Replacement Cost %], 50 )
+//
+// The 50 default is an ASSUMPTION, not a fact from the data. Replace it with your
+// organisation's own figure. Integers are used to avoid decimal rounding in the slicer.
+Replacement Cost Share = DIVIDE ( [Replacement Cost % Value], 100 )
+
+Estimated Cost of Attrition = [Annual Salary of Leavers] * [Replacement Cost Share]
+
+
+// ------------------------------------------------------------------ retention watchlist
+// WHAT-IF PARAMETER 2: how many risk flags make someone "at risk".
+// Modeling > New parameter > Numeric range: min 1, max 6, increment 1, default 4,
+// name "Risk Threshold". Equivalent DAX:
+//
+//   Risk Threshold = GENERATESERIES ( 1, 6, 1 )
+//   Risk Threshold Value = SELECTEDVALUE ( 'Risk Threshold'[Risk Threshold], 4 )
+//
+// RiskFlagCount counts six rules per employee: overtime, frequent travel, no
+// stock options, tenure of 2 years or less, entry level (JobLevel 1), and a
+// rating of 1 on job satisfaction, environment satisfaction or work-life balance.
+
+At-Risk Employees =
+VAR t = [Risk Threshold Value]
+RETURN
+    COALESCE (
+        CALCULATE ( COUNTROWS ( HR ), HR[Attrition] = "No", HR[RiskFlagCount] >= t ),
+        0
+    )
+
+At-Risk Annual Salary =
+VAR t = [Risk Threshold Value]
+RETURN
+    COALESCE (
+        CALCULATE ( SUM ( HR[AnnualIncome] ), HR[Attrition] = "No", HR[RiskFlagCount] >= t ),
+        0
+    )
+
+At-Risk Cost if Lost = [At-Risk Annual Salary] * [Replacement Cost Share]
+
+// Base rate for the employee's job role (ignores other filters). Put it in the watchlist
+// table so a reader can see that a flagged Research Director (2.5% role rate) is a
+// different situation from a flagged Sales Representative (39.8%).
+Role Attrition Rate = CALCULATE ( [Attrition Rate], ALLEXCEPT ( HR, HR[JobRole] ) )
+
+
+// ------------------------------------------------------------------ presentation helpers
+// Bar colour by rate. In a bar chart: Format > Columns > Colors > fx > Format style
+// "Field value" > this measure.
+Attrition Colour =
+VAR r = [Attrition Rate]
+VAR c = [Company Attrition Rate]
+RETURN
+    SWITCH (
+        TRUE (),
+        r >= c + 0.05, "#C00000",   // clearly above company rate
+        r <= c - 0.05, "#548235",   // clearly below
+        "#2E75B6"                   // close to company rate
+    )
+
+// Warns when a group is too small to trust. Put it in a visual's tooltip or a subtitle.
+Small Group Warning =
+IF ( [Headcount] < 50, "Small group (" & [Headcount] & " people): treat with caution", "" )
+
+// Dynamic subtitle for the page header
+Selection Summary =
+"Showing " & FORMAT ( [Headcount], "#,##0" ) & " employees, "
+    & FORMAT ( [Leavers], "#,##0" ) & " left ("
+    & FORMAT ( [Attrition Rate], "0.0%" ) & ")"

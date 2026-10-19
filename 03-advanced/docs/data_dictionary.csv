@@ -1,0 +1,60 @@
+Column,Type,Origin,Description
+EmployeeNumber,int64,Original,Employee ID (unique)
+Attrition,str,Original,"Yes if the employee left, otherwise No"
+Left,int64,Added,"1 if left, 0 if stayed (use for rates)"
+Age,int64,Original,Age in years
+BusinessTravel,str,Original,"Non-Travel, Travel_Rarely or Travel_Frequently"
+DailyRate,int64,Original,"Daily rate (not used, see cleaning log)"
+Department,str,Original,"Sales, Research & Development or Human Resources"
+DistanceFromHome,int64,Original,Distance from home (units not stated)
+Education,int64,Original,Education level 1 to 5
+EducationField,str,Original,Field of study
+EnvironmentSatisfaction,int64,Original,Rating 1 (Low) to 4 (Very High)
+Gender,str,Original,Female or Male
+HourlyRate,int64,Original,Hourly rate (not used)
+JobInvolvement,int64,Original,Rating 1 to 4
+JobLevel,int64,Original,Seniority 1 (junior) to 5
+JobRole,str,Original,Job title
+JobSatisfaction,int64,Original,Rating 1 to 4
+MaritalStatus,str,Original,"Single, Married or Divorced"
+MonthlyIncome,int64,Original,Monthly pay (currency not stated)
+MonthlyRate,int64,Original,Monthly rate (not used)
+NumCompaniesWorked,int64,Original,Number of previous employers
+OverTime,str,Original,Yes if works overtime
+PercentSalaryHike,int64,Original,"Last salary increase, percent"
+PerformanceRating,int64,Original,Rating 3 or 4 only in this dataset
+RelationshipSatisfaction,int64,Original,Rating 1 to 4
+StockOptionLevel,int64,Original,0 to 3
+TotalWorkingYears,int64,Original,Career length in years
+TrainingTimesLastYear,int64,Original,Training sessions last year
+WorkLifeBalance,int64,Original,Rating 1 to 4
+YearsAtCompany,int64,Original,Tenure in years
+YearsInCurrentRole,int64,Original,Years in current role
+YearsSinceLastPromotion,int64,Original,Years since last promotion
+YearsWithCurrManager,int64,Original,Years with current manager
+OvertimeFlag,int64,Added,1 if OverTime = Yes
+EducationLabel,str,Added,Text label for Education
+EnvironmentSatisfactionLabel,str,Added,Text label for EnvironmentSatisfaction
+JobInvolvementLabel,str,Added,Text label for JobInvolvement
+JobSatisfactionLabel,str,Added,Text label for JobSatisfaction
+RelationshipSatisfactionLabel,str,Added,Text label for RelationshipSatisfaction
+WorkLifeBalanceLabel,str,Added,Text label for WorkLifeBalance
+PerformanceRatingLabel,str,Added,Text label for PerformanceRating
+AgeBand,str,Added,Band of Age
+AgeBandSort,int8,Added,Sort order for AgeBand
+TenureBand,str,Added,Band of YearsAtCompany
+TenureBandSort,int8,Added,Sort order for TenureBand
+IncomeBand,str,Added,Band of MonthlyIncome
+IncomeBandSort,int8,Added,Sort order for IncomeBand
+DistanceBand,str,Added,Band of DistanceFromHome
+DistanceBandSort,int8,Added,Sort order for DistanceBand
+ManagerTenureBand,str,Added,Band of YearsWithCurrManager
+ManagerTenureBandSort,int8,Added,Sort order for ManagerTenureBand
+AnnualIncome,int64,Added,MonthlyIncome x 12
+FlagOvertime,int64,Added,Risk flag (1/0): Overtime
+FlagFrequentTravel,int64,Added,Risk flag (1/0): FrequentTravel
+FlagNoStockOptions,int64,Added,Risk flag (1/0): NoStockOptions
+FlagShortTenure,int64,Added,Risk flag (1/0): ShortTenure
+FlagEntryLevel,int64,Added,Risk flag (1/0): EntryLevel
+FlagLowSatisfaction,int64,Added,Risk flag (1/0): LowSatisfaction
+RiskFlagCount,int64,Added,"Number of risk flags (0 to 6), see cleaning log"

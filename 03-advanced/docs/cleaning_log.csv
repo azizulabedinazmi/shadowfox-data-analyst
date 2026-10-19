@@ -1,0 +1,16 @@
+Step,Area,Issue found,Action taken,Rows or columns affected
+1,Load,"File starts with a byte-order mark, which breaks the first column name in some tools.",Read as UTF-8 with BOM removed.,1 column name
+2,Quality check,"Looked for nulls, duplicate rows and duplicate EmployeeNumber.","None found in 1,470 rows. The dataset is already clean, so the work is mostly transformation.",0
+3,Quality check,Checked text columns for stray spaces and mixed spellings.,None found.,0
+4,Columns,"Three columns hold a single value for every employee (EmployeeCount=1, Over18=Y, StandardHours=80).",Dropped. They cannot explain differences between employees.,"EmployeeCount, Over18, StandardHours"
+5,Logic check,Rule: YearsAtCompany <= TotalWorkingYears.,Passed.,0
+6,Logic check,Rule: YearsInCurrentRole <= YearsAtCompany.,Passed.,0
+7,Logic check,Rule: YearsWithCurrManager <= YearsAtCompany.,Passed.,0
+8,Logic check,Rule: YearsSinceLastPromotion <= YearsAtCompany.,Passed.,0
+9,Logic check,Rule: Age - TotalWorkingYears >= 14.,Passed.,0
+10,Known issue,"DailyRate, HourlyRate and MonthlyRate are unrelated to MonthlyIncome (correlations DailyRate 0.01, HourlyRate -0.02, MonthlyRate 0.03), while MonthlyIncome tracks JobLevel closely.",Kept in the file but not used anywhere in the dashboard. MonthlyIncome is used as the pay measure.,3 columns
+11,Transformation,"Attrition is Yes/No text, which is awkward to sum or average.","Added Left (1 = left, 0 = stayed) and OvertimeFlag (1/0). Original text columns kept for slicers.",2 columns added
+12,Transformation,"Survey and rating columns are stored as numbers 1 to 4 (or 1 to 5), which read as meaningless on a chart.",Added a text label column for each (e.g. JobSatisfactionLabel). The number stays for sorting. Label meanings follow the dataset's published data dictionary: confirm against your copy of the task materials.,7 columns added
+13,Transformation,"Continuous columns (age, tenure, income, distance, years with manager) are too granular for group comparison.","Added 5 band columns, each with a *Sort column so Power BI can order bands correctly (use Sort by column). Band edges were chosen to give groups of reasonable size. Income is in the dataset's currency, which is not stated.",10 columns added
+14,Transformation,Cost questions need a yearly figure.,AnnualIncome = MonthlyIncome x 12.,1 column added
+15,Transformation,The dashboard needs a way to prioritise current employees for a retention conversation.,"Added six yes/no risk flags (overtime, frequent travel, no stock options, tenure of 2 years or less, entry level (JobLevel 1), any of job satisfaction / environment satisfaction / work-life balance rated 1) and RiskFlagCount (0 to 6). This is a transparent rule, not a fitted model. The flags were chosen after looking at this same data (the entry-level flag was added after a first version flagged many senior staff who almost never leave), so its apparent accuracy is optimistic and should be tested on new data before relying on it.",7 columns added

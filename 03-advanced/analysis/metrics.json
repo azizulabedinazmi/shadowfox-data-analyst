@@ -1,0 +1,91 @@
+{
+ "headcount": 1470,
+ "leavers": 237,
+ "current": 1233,
+ "attrition_rate": 0.16122448979591836,
+ "ot_rate": 0.30528846153846156,
+ "no_ot_rate": 0.10436432637571158,
+ "ot_multiple": 2.9252185314685315,
+ "avg_tenure_leavers": 5.1308016877637135,
+ "avg_tenure_stayers": 7.369018653690187,
+ "avg_income_leavers": 4787.0928270042195,
+ "avg_income_stayers": 6832.739659367397,
+ "annual_salary_leavers": 13614492.0,
+ "early_leaver_share": 0.43037974683544306,
+ "early_staff_share": 0.23265306122448978,
+ "cost_at_50pct": 6807246.0,
+ "at_risk_4": 55,
+ "at_risk_4_salary": 3317700.0,
+ "leavers_flags4_share": 0.35443037974683544,
+ "staff_flags4_share": 0.0945578231292517,
+ "rate_flags4plus": 0.60431654676259,
+ "rate_flags01": 0.04568527918781726,
+ "roles_flags4_current": {
+  "Research Scientist": 24,
+  "Laboratory Technician": 15,
+  "Research Director": 6,
+  "Manufacturing Director": 3,
+  "Sales Representative": 3,
+  "Human Resources": 2,
+  "Sales Executive": 1,
+  "Healthcare Representative": 1
+ },
+ "rate_by_flags": {
+  "0": [
+   180,
+   0.044444444444444446
+  ],
+  "1": [
+   411,
+   0.046228710462287104
+  ],
+  "2": [
+   446,
+   0.08744394618834081
+  ],
+  "3": [
+   294,
+   0.29591836734693877
+  ],
+  "4": [
+   104,
+   0.5288461538461539
+  ],
+  "5": [
+   34,
+   0.8235294117647058
+  ],
+  "6": [
+   1,
+   1.0
+  ]
+ },
+ "ot_No_level1_False": [
+  667,
+  0.0734632683658171
+ ],
+ "ot_No_level1_True": [
+  387,
+  0.15762273901808785
+ ],
+ "ot_Yes_level1_False": [
+  260,
+  0.17307692307692307
+ ],
+ "ot_Yes_level1_True": [
+  156,
+  0.5256410256410257
+ ],
+ "p_values": {
+  "Gender": 0.29057244902890855,
+  "PerformanceRating": 0.9900745465934576,
+  "PercentSalaryHike": 0.4989552229272689,
+  "Education": 0.5455253376565949,
+  "RelationshipSatisfaction": 0.15497244371052638,
+  "OverTime": 8.15842372153832e-21,
+  "StockOptionLevel": 4.379390336108354e-13,
+  "JobLevel": 6.634684715458957e-15,
+  "BusinessTravel": 5.608614476449931e-06,
+  "MaritalStatus": 9.45551106034083e-11
+ }
+}

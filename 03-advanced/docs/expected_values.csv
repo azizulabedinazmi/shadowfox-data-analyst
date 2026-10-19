@@ -1,0 +1,143 @@
+Measure,Filter applied,Expected value,Format
+Headcount,none,1470.0,"#,##0"
+Leavers,none,237.0,"#,##0"
+Current Employees,none,1233.0,"#,##0"
+Attrition Rate,none,0.161224,0.0%
+Overtime Attrition Rate,none,0.305288,0.0%
+No Overtime Attrition Rate,none,0.104364,0.0%
+Overtime Multiple,none,2.925219,"0.0""x"""
+Avg Tenure Leavers (yrs),none,5.130802,0.0
+Avg Tenure Stayers (yrs),none,7.369019,0.0
+Avg Monthly Income Leavers,none,4787.092827,"#,##0"
+Avg Monthly Income Stayers,none,6832.739659,"#,##0"
+Annual Salary of Leavers,none,13614492.0,"#,##0"
+Estimated Cost of Attrition,Replacement Cost = 50%,6807246.0,"#,##0"
+Early Leaver Share (tenure <= 2 yrs),none,0.43038,0.0%
+At-Risk Employees,Risk Threshold = 3,262.0,"#,##0"
+At-Risk Annual Salary,Risk Threshold = 3,14241420.0,"#,##0"
+At-Risk Employees,Risk Threshold = 4,55.0,"#,##0"
+At-Risk Annual Salary,Risk Threshold = 4,3317700.0,"#,##0"
+At-Risk Employees,Risk Threshold = 5,6.0,"#,##0"
+At-Risk Annual Salary,Risk Threshold = 5,510756.0,"#,##0"
+Attrition Rate,Department = Human Resources,0.190476,0.0%
+Headcount,Department = Human Resources,63.0,"#,##0"
+Attrition Rate,Department = Research & Development,0.138398,0.0%
+Headcount,Department = Research & Development,961.0,"#,##0"
+Attrition Rate,Department = Sales,0.206278,0.0%
+Headcount,Department = Sales,446.0,"#,##0"
+Attrition Rate,JobRole = Healthcare Representative,0.068702,0.0%
+Headcount,JobRole = Healthcare Representative,131.0,"#,##0"
+Attrition Rate,JobRole = Human Resources,0.230769,0.0%
+Headcount,JobRole = Human Resources,52.0,"#,##0"
+Attrition Rate,JobRole = Laboratory Technician,0.239382,0.0%
+Headcount,JobRole = Laboratory Technician,259.0,"#,##0"
+Attrition Rate,JobRole = Manager,0.04902,0.0%
+Headcount,JobRole = Manager,102.0,"#,##0"
+Attrition Rate,JobRole = Manufacturing Director,0.068966,0.0%
+Headcount,JobRole = Manufacturing Director,145.0,"#,##0"
+Attrition Rate,JobRole = Research Director,0.025,0.0%
+Headcount,JobRole = Research Director,80.0,"#,##0"
+Attrition Rate,JobRole = Research Scientist,0.160959,0.0%
+Headcount,JobRole = Research Scientist,292.0,"#,##0"
+Attrition Rate,JobRole = Sales Executive,0.174847,0.0%
+Headcount,JobRole = Sales Executive,326.0,"#,##0"
+Attrition Rate,JobRole = Sales Representative,0.39759,0.0%
+Headcount,JobRole = Sales Representative,83.0,"#,##0"
+Attrition Rate,OverTime = No,0.104364,0.0%
+Headcount,OverTime = No,1054.0,"#,##0"
+Attrition Rate,OverTime = Yes,0.305288,0.0%
+Headcount,OverTime = Yes,416.0,"#,##0"
+Attrition Rate,BusinessTravel = Non-Travel,0.08,0.0%
+Headcount,BusinessTravel = Non-Travel,150.0,"#,##0"
+Attrition Rate,BusinessTravel = Travel_Frequently,0.249097,0.0%
+Headcount,BusinessTravel = Travel_Frequently,277.0,"#,##0"
+Attrition Rate,BusinessTravel = Travel_Rarely,0.149569,0.0%
+Headcount,BusinessTravel = Travel_Rarely,1043.0,"#,##0"
+Attrition Rate,MaritalStatus = Divorced,0.100917,0.0%
+Headcount,MaritalStatus = Divorced,327.0,"#,##0"
+Attrition Rate,MaritalStatus = Married,0.124814,0.0%
+Headcount,MaritalStatus = Married,673.0,"#,##0"
+Attrition Rate,MaritalStatus = Single,0.255319,0.0%
+Headcount,MaritalStatus = Single,470.0,"#,##0"
+Attrition Rate,StockOptionLevel = 0,0.244057,0.0%
+Headcount,StockOptionLevel = 0,631.0,"#,##0"
+Attrition Rate,StockOptionLevel = 1,0.09396,0.0%
+Headcount,StockOptionLevel = 1,596.0,"#,##0"
+Attrition Rate,StockOptionLevel = 2,0.075949,0.0%
+Headcount,StockOptionLevel = 2,158.0,"#,##0"
+Attrition Rate,StockOptionLevel = 3,0.176471,0.0%
+Headcount,StockOptionLevel = 3,85.0,"#,##0"
+Attrition Rate,JobLevel = 1,0.263352,0.0%
+Headcount,JobLevel = 1,543.0,"#,##0"
+Attrition Rate,JobLevel = 2,0.097378,0.0%
+Headcount,JobLevel = 2,534.0,"#,##0"
+Attrition Rate,JobLevel = 3,0.146789,0.0%
+Headcount,JobLevel = 3,218.0,"#,##0"
+Attrition Rate,JobLevel = 4,0.04717,0.0%
+Headcount,JobLevel = 4,106.0,"#,##0"
+Attrition Rate,JobLevel = 5,0.072464,0.0%
+Headcount,JobLevel = 5,69.0,"#,##0"
+Attrition Rate,TenureBand = 0-1 yrs,0.348837,0.0%
+Headcount,TenureBand = 0-1 yrs,215.0,"#,##0"
+Attrition Rate,TenureBand = 2 yrs,0.212598,0.0%
+Headcount,TenureBand = 2 yrs,127.0,"#,##0"
+Attrition Rate,TenureBand = 3-5 yrs,0.138249,0.0%
+Headcount,TenureBand = 3-5 yrs,434.0,"#,##0"
+Attrition Rate,TenureBand = 6-10 yrs,0.122768,0.0%
+Headcount,TenureBand = 6-10 yrs,448.0,"#,##0"
+Attrition Rate,TenureBand = 11+ yrs,0.081301,0.0%
+Headcount,TenureBand = 11+ yrs,246.0,"#,##0"
+Attrition Rate,AgeBand = 18-25,0.357724,0.0%
+Headcount,AgeBand = 18-25,123.0,"#,##0"
+Attrition Rate,AgeBand = 26-35,0.191419,0.0%
+Headcount,AgeBand = 26-35,606.0,"#,##0"
+Attrition Rate,AgeBand = 36-45,0.09188,0.0%
+Headcount,AgeBand = 36-45,468.0,"#,##0"
+Attrition Rate,AgeBand = 46+,0.124542,0.0%
+Headcount,AgeBand = 46+,273.0,"#,##0"
+Attrition Rate,IncomeBand = Up to 3K,0.286076,0.0%
+Headcount,IncomeBand = Up to 3K,395.0,"#,##0"
+Attrition Rate,IncomeBand = 3K-5K,0.141243,0.0%
+Headcount,IncomeBand = 3K-5K,354.0,"#,##0"
+Attrition Rate,IncomeBand = 5K-8K,0.1,0.0%
+Headcount,IncomeBand = 5K-8K,340.0,"#,##0"
+Attrition Rate,IncomeBand = 8K-12K,0.155914,0.0%
+Headcount,IncomeBand = 8K-12K,186.0,"#,##0"
+Attrition Rate,IncomeBand = Over 12K,0.05641,0.0%
+Headcount,IncomeBand = Over 12K,195.0,"#,##0"
+Attrition Rate,JobRole = Healthcare Representative AND OverTime = No,0.074468,0.0%
+Headcount,JobRole = Healthcare Representative AND OverTime = No,94.0,"#,##0"
+Attrition Rate,JobRole = Healthcare Representative AND OverTime = Yes,0.054054,0.0%
+Headcount,JobRole = Healthcare Representative AND OverTime = Yes,37.0,"#,##0"
+Attrition Rate,JobRole = Human Resources AND OverTime = No,0.179487,0.0%
+Headcount,JobRole = Human Resources AND OverTime = No,39.0,"#,##0"
+Attrition Rate,JobRole = Human Resources AND OverTime = Yes,0.384615,0.0%
+Headcount,JobRole = Human Resources AND OverTime = Yes,13.0,"#,##0"
+Attrition Rate,JobRole = Laboratory Technician AND OverTime = No,0.15736,0.0%
+Headcount,JobRole = Laboratory Technician AND OverTime = No,197.0,"#,##0"
+Attrition Rate,JobRole = Laboratory Technician AND OverTime = Yes,0.5,0.0%
+Headcount,JobRole = Laboratory Technician AND OverTime = Yes,62.0,"#,##0"
+Attrition Rate,JobRole = Manager AND OverTime = No,0.013333,0.0%
+Headcount,JobRole = Manager AND OverTime = No,75.0,"#,##0"
+Attrition Rate,JobRole = Manager AND OverTime = Yes,0.148148,0.0%
+Headcount,JobRole = Manager AND OverTime = Yes,27.0,"#,##0"
+Attrition Rate,JobRole = Manufacturing Director AND OverTime = No,0.056604,0.0%
+Headcount,JobRole = Manufacturing Director AND OverTime = No,106.0,"#,##0"
+Attrition Rate,JobRole = Manufacturing Director AND OverTime = Yes,0.102564,0.0%
+Headcount,JobRole = Manufacturing Director AND OverTime = Yes,39.0,"#,##0"
+Attrition Rate,JobRole = Research Director AND OverTime = No,0.017544,0.0%
+Headcount,JobRole = Research Director AND OverTime = No,57.0,"#,##0"
+Attrition Rate,JobRole = Research Director AND OverTime = Yes,0.043478,0.0%
+Headcount,JobRole = Research Director AND OverTime = Yes,23.0,"#,##0"
+Attrition Rate,JobRole = Research Scientist AND OverTime = No,0.071795,0.0%
+Headcount,JobRole = Research Scientist AND OverTime = No,195.0,"#,##0"
+Attrition Rate,JobRole = Research Scientist AND OverTime = Yes,0.340206,0.0%
+Headcount,JobRole = Research Scientist AND OverTime = Yes,97.0,"#,##0"
+Attrition Rate,JobRole = Sales Executive AND OverTime = No,0.112069,0.0%
+Headcount,JobRole = Sales Executive AND OverTime = No,232.0,"#,##0"
+Attrition Rate,JobRole = Sales Executive AND OverTime = Yes,0.329787,0.0%
+Headcount,JobRole = Sales Executive AND OverTime = Yes,94.0,"#,##0"
+Attrition Rate,JobRole = Sales Representative AND OverTime = No,0.288136,0.0%
+Headcount,JobRole = Sales Representative AND OverTime = No,59.0,"#,##0"
+Attrition Rate,JobRole = Sales Representative AND OverTime = Yes,0.666667,0.0%
+Headcount,JobRole = Sales Representative AND OverTime = Yes,24.0,"#,##0"
