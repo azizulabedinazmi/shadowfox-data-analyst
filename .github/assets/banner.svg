@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="1200" height="320">
+  <defs>
+    <linearGradient id="bar" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ea580c"/><stop offset="1" stop-color="#fdba74"/></linearGradient>
+    <style>.grow{transform-box:fill-box;transform-origin:bottom;animation:gr 3s ease-out infinite alternate}.d1{animation-delay:.15s}.d2{animation-delay:.3s}.d3{animation-delay:.45s}.d4{animation-delay:.6s}.d5{animation-delay:.75s}@keyframes gr{from{transform:scaleY(.2)}to{transform:scaleY(1)}}</style>
+  </defs>
+  <rect width="1200" height="320" fill="#0f0f12"/>
+  <!-- fox mark -->
+  <g transform="translate(70 66)">
+    <path d="M0 0l22 34h36L80 0 70 52 40 84 10 52z" fill="#f97316"/>
+    <path d="M22 34h36L40 70z" fill="#fff7ed"/>
+    <circle cx="28" cy="44" r="4" fill="#0f0f12"/><circle cx="52" cy="44" r="4" fill="#0f0f12"/>
+    <path d="M36 62h8l-4 6z" fill="#0f0f12"/>
+  </g>
+  <text x="170" y="104" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#fb923c" letter-spacing="6">SHADOWFOX</text>
+  <text x="66" y="200" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="62" font-weight="800" fill="#fafafa">Data Analyst</text>
+  <text x="66" y="250" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" font-weight="300" fill="#a1a1aa">Internship · Beginner → Intermediate → Advanced</text>
+  <!-- dashboard -->
+  <g transform="translate(680 36)" font-family="Consolas, Menlo, monospace">
+    <rect width="470" height="248" rx="14" fill="#18181b" stroke="#27272a"/>
+    <g font-size="11" fill="#71717a"><text x="22" y="32">REVENUE</text><text x="172" y="32">CUSTOMERS</text><text x="322" y="32">RETENTION</text></g>
+    <g font-size="24" font-weight="700"><text x="22" y="62" fill="#fafafa">$2.3M</text><text x="172" y="62" fill="#fafafa">4,372</text><text x="322" y="62" fill="#fb923c">↑ 34%</text></g>
+    <line x1="22" y1="82" x2="448" y2="82" stroke="#27272a"/>
+    <g transform="translate(22 226)">
+      <rect class="grow" x="0" y="-60" width="34" height="60" rx="4" fill="url(#bar)"/>
+      <rect class="grow d1" x="48" y="-90" width="34" height="90" rx="4" fill="url(#bar)"/>
+      <rect class="grow d2" x="96" y="-74" width="34" height="74" rx="4" fill="url(#bar)"/>
+      <rect class="grow d3" x="144" y="-118" width="34" height="118" rx="4" fill="url(#bar)"/>
+      <rect class="grow d4" x="192" y="-100" width="34" height="100" rx="4" fill="url(#bar)"/>
+      <rect class="grow d5" x="240" y="-128" width="34" height="128" rx="4" fill="url(#bar)"/>
+    </g>
+    <g transform="translate(380 160)"><circle r="44" fill="none" stroke="#27272a" stroke-width="16"/><circle r="44" fill="none" stroke="#f97316" stroke-width="16" stroke-dasharray="190 277" transform="rotate(-90)"/><text y="6" text-anchor="middle" font-size="16" fill="#fafafa">69%</text></g>
+  </g>
+</svg>

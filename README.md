@@ -1,3 +1,7 @@
+<p align="center">
+  <img src=".github/assets/banner.svg" alt="ShadowFox Data Analyst banner" width="100%">
+</p>
+
 # ShadowFox Data Analyst Internship
 
 Submission repository for the ShadowFox Data Analyst Internship task list
